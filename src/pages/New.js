@@ -40,9 +40,7 @@ export default class New extends Component {
                     <TouchableOpacity onPress={this.goBack}>
                         <Icon name="close" size={24} color="#4BB0EE"/>
                     </TouchableOpacity>
-                    <TouchableOpacity  onPress={this.handleTweet}>
-                        <Text style={styles.buttonText}>Teewtar</Text>
-                    </TouchableOpacity>
+                    
                     <TextInput 
                         style={styles.input}
                         multiline
@@ -55,7 +53,9 @@ export default class New extends Component {
                         >
 
                     </TextInput>
-
+                    <TouchableOpacity style={styles.button} onPress={this.handleTweet}>
+                        <Text style={styles.buttonText}>Tweetar</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
     );
