@@ -8,9 +8,9 @@ import api from '../services/api';
 export default class Tweet extends Component {
     handleLike = ()=> {
 
-        const { id } = this.props.tweet;
+        const { _id } = this.props.tweet;
         
-        api.post('likes/'+ id);
+        api.post('likes/'+ _id);
         
     };
 
@@ -26,7 +26,7 @@ export default class Tweet extends Component {
 
             <TouchableOpacity onPress={this.handleLike}>
                 <Icon name="ios-heart-empty" size={20} color="#999"></Icon>
-                <Text styles={style.likeText}>{tweet.likes}</Text>
+                <Text>{tweet.likes}</Text>
             </TouchableOpacity>
 
             </View>

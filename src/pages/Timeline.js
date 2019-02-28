@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import api from '../services/api';
 import socket from 'socket.io-client';
 
-
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 
 // import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -20,7 +19,6 @@ export default class Timeline extends Component {
           name="add-circle-outline"
           size={24}
           color="#4BB0EE">
-
         </Icon>
 
 
@@ -29,19 +27,18 @@ export default class Timeline extends Component {
   });
 
   state = {
-    tweets: []
-  }
+    tweets:[]
+  };
 
-  async componentDidMount(){
-      this.subscribeToEvents();
-      const response  = api.get('tweets');
-      this.setState({ tweets:response.data });
-      
+async componentDidMount() {
+    this.subscribeToEvents();
+    const dados = await api.get('tweets');
 
-  }
+    this.setState({ tweets : dados.data });
+};
 
   subscribeToEvents = () =>{
-    const io = socket('http://192.168.28.2:3000');
+    const io = socket('https://node-api-danielstackjs.herokuapp.com/');
 
     io.on('tweet', data =>{
        this.setState({ tweets: [data, ...this.state.tweets]});
@@ -59,19 +56,18 @@ export default class Timeline extends Component {
   render() {
     return (
           <View style={styles.container}>
-            {this.state.tweets.map(t => <Text>{t.author}</Text>)}
-          </View>
-          // <View style={styles.container}>
-          // <FlatList 
-          //   data={this.state.tweets}
-          //   keyExtractor={tweet => tweet._id}
-          //    renderItem = {({ item })=> <Tweet tweet={item}></Tweet> }>
+          <FlatList 
+            data={this.state.tweets}
+            keyExtractor={tweet => tweet._id}
+             renderItem = {({ item })=> <Tweet tweet={item}></Tweet> }>
 
-          // </FlatList>
-          // </View>
+          </FlatList>
+          </View>
         );
   }
 }
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
